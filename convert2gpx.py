@@ -39,7 +39,7 @@ if __name__ == '__main__':
     head += "  xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1\n"
     head += "  http://www.topografix.com/GPX/1/1/gpx.xsd\"\n"
     head += "  version=\"1.1\"\n"
-    head += "  creator=\"fabius8@163.com\"\n>\n"
+    head += "  creator=\"fabius8@163.com\"\n>"
     g = Geocoding('f8ca14edcad37856646fadd5d84bf512')  # 这里填写你的高德api的key
     info = json.load(open("city.json"))
 
@@ -51,7 +51,7 @@ if __name__ == '__main__':
         count += 1
         result = g.geocode(i)
         with open('output.gpx', 'a') as the_file:
-            latlon = '  <wpt '
+            latlon = '\n  <wpt '
             latlon += 'lat="' + str(result[1]) + '" '
             latlon += 'lon="' + str(result[0]) + '">\n'
             latlon += '    <name>' + i + '</name>\n'
@@ -62,6 +62,9 @@ if __name__ == '__main__':
             latlon += 'lon="' + str(result[0] + 0.001) + '">\n'
             latlon += '    <name>' + i + '</name>\n'
             latlon += '    <time>' + "2019-01-01T00:" + str(count).zfill(2) + ":59Z</time>\n"
-            latlon += '  </wpt>\n\n'
+            latlon += '  </wpt>\n'
             the_file.write(latlon)
+
+    with open('output.gpx', 'a') as the_file:
+        the_file.write('</gpx>')
 
