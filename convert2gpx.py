@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import json
+import time
+from datetime import datetime
 from urllib import request, parse
 import argparse
 
@@ -9,7 +11,7 @@ parser.add_argument("cityjson", help="convert json to gpx.", type=str)
 args = parser.parse_args()
 cityjson = args.cityjson
 citygpx = cityjson.replace(".json", ".gpx")
-print(cityjson, citygpx)
+print("input:", cityjson, "output:", citygpx)
 
 
 class Geocoding:
@@ -55,6 +57,7 @@ if __name__ == '__main__':
     with open(citygpx, 'w') as the_file:
         the_file.write(head)
 
+    ts = 1573401600
     count = 0
     for i in info["city"]:
         count += 1
@@ -65,16 +68,21 @@ if __name__ == '__main__':
             latlon += 'lat="' + str(result[1]) + '" '
             latlon += 'lon="' + str(result[0]) + '">\n'
             latlon += '    <name>' + i + '</name>\n'
-            latlon += '    <time>' + "2019-01-01T00:" + str(count).zfill(2) + ":00Z</time>\n"
+            ts += 1
+            strts = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%dT%H:%M:%SZ')
+            latlon += '    <time>' + strts + '</time>\n'
             latlon += '  </wpt>\n'
             latlon += '  <wpt '
             latlon += 'lat="' + str(result[1] + 0.005) + '" '
             latlon += 'lon="' + str(result[0] + 0.005) + '">\n'
             latlon += '    <name>' + i + '</name>\n'
-            latlon += '    <time>' + "2019-01-01T00:" + str(count).zfill(2) + ":59Z</time>\n"
+            ts += 2
+            strts = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%dT%H:%M:%SZ')
+            latlon += '    <time>' + strts + '</time>\n'
             latlon += '  </wpt>\n'
             the_file.write(latlon)
 
+    print("city:", count)
     with open(citygpx, 'a') as the_file:
         the_file.write('</gpx>')
 
