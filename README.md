@@ -5,5 +5,5 @@
 
 # 使用方法
 1. 修改city.json，添加城市
-2. ./convert2gpx生成output.gpx
+2. ./convert2gpx city.json 生成 city.gpx
 3. 将gpx文件添加到xcode工程，虚拟定位选择该文件即可

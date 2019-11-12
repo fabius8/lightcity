@@ -68,7 +68,7 @@ if __name__ == '__main__':
             latlon += 'lat="' + str(result[1]) + '" '
             latlon += 'lon="' + str(result[0]) + '">\n'
             latlon += '    <name>' + i + '</name>\n'
-            ts += 1
+            ts += 3
             strts = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%dT%H:%M:%SZ')
             latlon += '    <time>' + strts + '</time>\n'
             latlon += '  </wpt>\n'
@@ -76,7 +76,7 @@ if __name__ == '__main__':
             latlon += 'lat="' + str(result[1] + 0.005) + '" '
             latlon += 'lon="' + str(result[0] + 0.005) + '">\n'
             latlon += '    <name>' + i + '</name>\n'
-            ts += 2
+            ts += 65
             strts = datetime.utcfromtimestamp(ts).strftime('%Y-%m-%dT%H:%M:%SZ')
             latlon += '    <time>' + strts + '</time>\n'
             latlon += '  </wpt>\n'
