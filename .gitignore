@@ -1,3 +1,4 @@
+auth.json
 *.gpx
-*.json
 done
+.DS_Store

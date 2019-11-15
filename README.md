@@ -5,5 +5,6 @@
 
 # 使用方法
 1. 修改city.json，添加城市
-2. ./convert2gpx city.json 生成 city.gpx
-3. 将gpx文件添加到xcode工程，虚拟定位选择该文件即可
+3. touch city.gpx
+4. xcode 运行, 添加city.gpx文件
+2. ./lightcity.py city.json
