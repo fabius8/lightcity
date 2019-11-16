@@ -45,9 +45,17 @@ if __name__ == '__main__':
     count = 0
     cities = []
     for i in g.geocode("中国"):
+        if i["name"].find("北京") != -1 or i["name"].find("重庆") != -1 or \
+           i["name"].find("香港") != -1 or i["name"].find("澳门") != -1 or \
+           i["name"].find("天津") != -1 or i["name"].find("台湾") != -1 or \
+           i["name"].find("上海") != -1:
+            count += 1
+            cities.append(i["name"])
+            print(i["name"])
+            continue
         for j in i["districts"]:
             count += 1
-            cities.append(str(j["name"]))
+            cities.append(j["name"])
     with open(cityjson, "w", encoding='utf-8') as f:
         json.dump({'city': cities}, f, indent=4, ensure_ascii=False)
     print("city number: ", count)
