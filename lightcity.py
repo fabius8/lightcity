@@ -51,13 +51,20 @@ if __name__ == '__main__':
     g = Geocoding('f8ca14edcad37856646fadd5d84bf512')  # 这里填写你的高德api的key
     info = json.load(open(cityjson))
 
+    times = 0
     count = 0
     while True:
-        count += 1
+        times += 1
         for i in info["city"]:
             print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
-            result = g.geocode(i)
-            print("Updated ", count, "times! ", i, result)
+            count += 1
+            while True:
+                result = g.geocode(i)
+                if result is not None:
+                    break
+                time.sleep(3)
+                print("Oh! Get Noting, Try again...")
+            print("No.", count, "Updated", times, "times! ", i, result)
             gpx = ET.Element("gpx", version="1.1", creator="Xcode")
             wpt = ET.SubElement(gpx, "wpt", lat=str(result[1]), lon=str(result[0]))
             ET.SubElement(wpt, "name").text = i

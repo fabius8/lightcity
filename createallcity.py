@@ -56,6 +56,7 @@ if __name__ == '__main__':
         for j in i["districts"]:
             count += 1
             cities.append(j["name"])
+            print(j["name"])
     with open(cityjson, "w", encoding='utf-8') as f:
         json.dump({'city': cities}, f, indent=4, ensure_ascii=False)
-    print("city number: ", count)
+    print("city number:", count)
