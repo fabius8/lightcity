@@ -11,8 +11,8 @@ parser = argparse.ArgumentParser("convert2gpx.py city.json")
 parser.add_argument("cityjson", help="convert json to gpx.", type=str)
 args = parser.parse_args()
 cityjson = args.cityjson
-citygpx = cityjson.replace(".json", ".gpx")
-print("input:", cityjson, "output:", citygpx)
+citygpx = "city.gpx"
+print("Input:", cityjson, "Output:", citygpx)
 print("")
 
 class Geocoding:
@@ -59,17 +59,21 @@ if __name__ == '__main__':
             print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
             count += 1
             while True:
-                result = g.geocode(i)
+                try:
+                    result = g.geocode(i)
+                except Exception as result:
+                    print(result)
+                    continue
                 if result is not None:
                     break
                 time.sleep(3)
                 print("Oh! Get Noting, Try again...")
             print("No.", count, "Updated", times, "times! ", i, result)
             gpx = ET.Element("gpx", version="1.1", creator="Xcode")
-            wpt = ET.SubElement(gpx, "wpt", lat=str(result[1]), lon=str(result[0]))
+            wpt = ET.SubElement(gpx, "wpt",
+                                lat=str(result[1]), lon=str(result[0]))
             ET.SubElement(wpt, "name").text = i
-            ET.ElementTree(gpx).write("city.gpx", encoding='utf-8')
-            print("")
+            ET.ElementTree(gpx).write(citygpx, encoding='utf-8')
             os.system(cmd)
             time.sleep(10)
         count = 0
