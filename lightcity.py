@@ -72,4 +72,5 @@ if __name__ == '__main__':
             print("")
             os.system(cmd)
             time.sleep(10)
+        count = 0
 
