@@ -64,5 +64,5 @@ if __name__ == '__main__':
             ET.ElementTree(gpx).write("city.gpx", encoding='utf-8')
             print("")
             os.system(cmd)
-            time.sleep(1)
+            time.sleep(10)
 
