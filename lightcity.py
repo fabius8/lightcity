@@ -61,7 +61,7 @@ if __name__ == '__main__':
             gpx = ET.Element("gpx", version="1.1", creator="Xcode")
             wpt = ET.SubElement(gpx, "wpt", lat=str(result[1]), lon=str(result[0]))
             ET.SubElement(wpt, "name").text = i
-            ET.ElementTree(gpx).write("city.gpx")
+            ET.ElementTree(gpx).write("city.gpx", encoding='utf-8')
             print("")
             os.system(cmd)
             time.sleep(1)
