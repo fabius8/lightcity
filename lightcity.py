@@ -53,6 +53,7 @@ if __name__ == '__main__':
 
     times = 0
     count = 0
+    keeptime = 30
     while True:
         times += 1
         for i in info["city"]:
@@ -62,11 +63,15 @@ if __name__ == '__main__':
                 try:
                     result = g.geocode(i)
                 except Exception as result:
+                    cmd = "say" + "update city fail"
+                    os.system(cmd)
                     print(result)
                     continue
                 if result is not None:
                     break
                 time.sleep(3)
+                cmd = "say" + "update city fail"
+                os.system(cmd)
                 print("Oh! Get Noting, Try again...")
             print("No.", count, "Updated", times, "times! ", i, result)
             gpx = ET.Element("gpx", version="1.1", creator="Xcode")
@@ -75,6 +80,6 @@ if __name__ == '__main__':
             ET.SubElement(wpt, "name").text = i
             ET.ElementTree(gpx).write(citygpx, encoding='utf-8')
             os.system(cmd)
-            time.sleep(10)
+            time.sleep(30)
         count = 0
 

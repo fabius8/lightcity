@@ -1,4 +1,5 @@
-auth.json
+*.json
 *.gpx
 done
 .DS_Store
+*.txt
