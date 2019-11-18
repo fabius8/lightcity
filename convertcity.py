@@ -9,9 +9,9 @@ output_json = "temp.json"
 
 def process_text_to_json(input_text):
     city_data = []
+    count = 0
     with open(input_text, "r", encoding='utf-8') as f:
         for line in f:
-            print(line)
             line = re.split('，|,|\s+|;|\n', line)
             line.remove('')
             if line is None:
@@ -19,7 +19,10 @@ def process_text_to_json(input_text):
             for i in line:
                 if i != "":
                     print(i)
+                    count +=1
                     city_data.append(i)
+
+        print("city number:", count)
     return city_data
 
 
