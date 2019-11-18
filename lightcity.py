@@ -44,7 +44,7 @@ class Geocoding:
             return None
 
 
-cmd = "osascript ./click.scpt 1>/dev/null"
+ecmd = "osascript ./click.scpt 1>/dev/null"
 
 
 if __name__ == '__main__':
@@ -63,14 +63,14 @@ if __name__ == '__main__':
                 try:
                     result = g.geocode(i)
                 except Exception as result:
-                    cmd = "say" + "update city fail"
+                    cmd = "say" + " update city fail"
                     os.system(cmd)
                     print(result)
                     continue
                 if result is not None:
                     break
                 time.sleep(3)
-                cmd = "say" + "update city fail"
+                cmd = "say" + " update city fail"
                 os.system(cmd)
                 print("Oh! Get Noting, Try again...")
             print("No.", count, "Updated", times, "times! ", i, result)
@@ -79,7 +79,7 @@ if __name__ == '__main__':
                                 lat=str(result[1]), lon=str(result[0]))
             ET.SubElement(wpt, "name").text = i
             ET.ElementTree(gpx).write(citygpx, encoding='utf-8')
-            os.system(cmd)
-            time.sleep(60)
+            os.system(ecmd)
+            time.sleep(61)
         count = 0
 
