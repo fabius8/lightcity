@@ -80,6 +80,7 @@ if __name__ == '__main__':
             ET.SubElement(wpt, "name").text = i
             ET.ElementTree(gpx).write(citygpx, encoding='utf-8')
             os.system(ecmd)
-            time.sleep(61)
+            time.sleep(62)
+        os.system("say mission completed")
         count = 0
 
