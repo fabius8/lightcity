@@ -63,6 +63,8 @@ def process_text_to_json(input_text):
                     city_data.append(i)
 
         print("city number:", count)
+        city_data = list(set(city_data))
+        print("city number:", (len(city_data)), "after remove same city")
     return city_data
 
 

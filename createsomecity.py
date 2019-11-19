@@ -45,8 +45,7 @@ if __name__ == '__main__':
     count = 0
     cities = []
     for i in g.geocode("中国"):
-        if i["name"].find("江苏") != -1 or i["name"].find("海南") != -1 or \
-           i["name"].find("山东") != -1:
+        if i["name"].find("浙江") != -1 or i["name"].find("四川") != -1:
             for j in i["districts"]:
                 count += 1
                 cities.append(j["name"])

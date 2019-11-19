@@ -50,6 +50,7 @@ ecmd = "osascript ./click.scpt 1>/dev/null"
 if __name__ == '__main__':
     g = Geocoding('f8ca14edcad37856646fadd5d84bf512')  # 这里填写你的高德api的key
     info = json.load(open(cityjson))
+    total_city = len(info["city"])
 
     times = 0
     count = 0
@@ -73,7 +74,8 @@ if __name__ == '__main__':
                 cmd = "say" + " update city fail"
                 os.system(cmd)
                 print("Oh! Get Noting, Try again...")
-            print("No.", count, "Updated", times, "times! ", i, result)
+            print(count, "/", total_city,
+                  "Updated", times, "times! ", i, result)
             gpx = ET.Element("gpx", version="1.1", creator="Xcode")
             wpt = ET.SubElement(gpx, "wpt",
                                 lat=str(result[1]), lon=str(result[0]))
@@ -81,6 +83,6 @@ if __name__ == '__main__':
             ET.ElementTree(gpx).write(citygpx, encoding='utf-8')
             os.system(ecmd)
             time.sleep(62)
-        os.system("say mission completed")
+        os.system("say turn around")
         count = 0
 
