@@ -52,7 +52,7 @@ def process_text_to_json(input_text):
     count = 0
     with open(input_text, "r", encoding='utf-8') as f:
         for line in f:
-            line = re.split('，|,|\s+|;|\n|、', line)
+            line = re.split('，|,|\s+|;|\n|、|。', line)
             line.remove('')
             if line is None:
                 continue
@@ -63,7 +63,10 @@ def process_text_to_json(input_text):
                     city_data.append(i)
 
         print("city number:", count)
-        city_data = list(set(city_data))
+        print(city_data)
+        city_data_v2 = sorted(set(city_data), key=city_data.index)
+        city_data = city_data_v2
+        print(city_data)
         print("city number:", (len(city_data)), "after remove same city")
     return city_data
 
@@ -72,9 +75,13 @@ if __name__ == '__main__':
     g = Geocoding('f8ca14edcad37856646fadd5d84bf512')
     print("process start...")
     cities = process_text_to_json(input_text)
+    check_cities = cities
     for i in cities:
         if test_city(g, i) is None:
-            print(i, "is a wrong city!")
+            print("x", i)
+            check_cities.remove(i)
+    cities = check_cities
+    print("End city number:", len(cities))
     with open(output_json, "w", encoding='utf-8') as f:
         json.dump({'city': cities}, f, indent=4, ensure_ascii=False)
     print("process end!")
