@@ -1,9 +1,30 @@
 property locationName : "city"
 
-tell application "System Events"
-	tell process "Xcode"
-		click menu item "London, England" of menu 1 of menu item "Simulate Location" of menu 1 of menu bar item "Debug" of menu bar 1
-		delay 0.2
-		click menu item locationName of menu 1 of menu item "Simulate Location" of menu 1 of menu bar item "Debug" of menu bar 1
-	end tell
-end tell
+on chooseMenuItem(theAppName, theMenuName, theMenuItemName, theMenuItemName2)
+    try
+        tell application "System Events"
+            tell process theAppName
+                tell menu bar 1
+                    tell menu bar item theMenuName
+                        tell menu theMenuName
+                             tell menu item theMenuItemName
+                                  tell menu theMenuItemName
+                                       tell menu item theMenuItemName2
+                                            click
+                                       end tell
+                                  end tell
+                             end tell
+                        end tell
+                    end tell
+                end tell
+            end tell
+        end tell
+        return true
+    on error
+        return false
+    end try
+end chooseMenuItem
+
+chooseMenuItem("Xcode", "Debug", "Simulate Location", "London, England")
+delay(0.2)
+chooseMenuItem("Xcode", "Debug", "Simulate Location", "city")

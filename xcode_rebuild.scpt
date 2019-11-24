@@ -1,10 +1,5 @@
 on chooseMenuItem(theAppName, theMenuName, theMenuItemName)
     try
-        -- Bring the target app to the front
-        tell application theAppName
-            activate
-        end tell
- 
         -- Target the app
         tell application "System Events"
             tell process theAppName

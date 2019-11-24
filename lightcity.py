@@ -82,7 +82,7 @@ if __name__ == '__main__':
             ET.SubElement(wpt, "name").text = i
             ET.ElementTree(gpx).write(citygpx, encoding='utf-8')
             os.system(ecmd)
-            time.sleep(62)
+            time.sleep(63)
         os.system("say turn around")
         count = 0
 
