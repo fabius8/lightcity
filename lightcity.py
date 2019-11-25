@@ -9,10 +9,12 @@ import time
 
 parser = argparse.ArgumentParser("convert2gpx.py city.json")
 parser.add_argument("cityjson", help="convert json to gpx.", type=str)
+parser.add_argument("--start", default=0, help="City start number", type=int)
 args = parser.parse_args()
 cityjson = args.cityjson
 citygpx = "city.gpx"
-print("Input:", cityjson, "Output:", citygpx)
+start = args.start
+print("Input:", cityjson, "Output:", citygpx, "Start:", start)
 print("")
 
 class Geocoding:
@@ -60,6 +62,11 @@ if __name__ == '__main__':
         for i in info["city"]:
             print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
             count += 1
+            if count < start:
+                print(count, "/", total_city, "skip")
+                continue
+            else:
+                start = 0
             while True:
                 try:
                     result = g.geocode(i)
