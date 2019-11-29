@@ -155,7 +155,7 @@ if __name__ == '__main__':
             ET.SubElement(wpt, "name").text = i
             ET.ElementTree(gpx).write(citygpx, encoding='utf-8')
             os.system(ecmd)
-            time.sleep(1)
+            time.sleep(3)
             if auto == 1 and times == 1 and count == 1:
                 try:
                     s = c.session(bundle_id)
