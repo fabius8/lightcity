@@ -119,8 +119,6 @@ if __name__ == '__main__':
         except Exception as err:
             print(err)
 
-
-
     while True:
         times += 1
         if times == 3:
@@ -143,20 +141,21 @@ if __name__ == '__main__':
                     continue
                 if result is not None:
                     break
-                time.sleep(3)
+                # time.sleep(1)
                 cmd = "say" + " update city fail"
                 os.system(cmd)
                 print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
                       "Oh! Get Noting, Try again...")
             print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
-                  count, "/", total_city, "Updated", times, "times! ", i, result)
+                  count, "/", total_city,
+                  "Updated", times, "times! ", i, result)
             gpx = ET.Element("gpx", version="1.1", creator="Xcode")
             wpt = ET.SubElement(gpx, "wpt",
                                 lat=str(result[1]), lon=str(result[0]))
             ET.SubElement(wpt, "name").text = i
             ET.ElementTree(gpx).write(citygpx, encoding='utf-8')
             os.system(ecmd)
-            time.sleep(2)
+            time.sleep(1)
             if auto == 1 and times == 1 and count == 1:
                 try:
                     s = c.session(bundle_id)
@@ -166,16 +165,16 @@ if __name__ == '__main__':
                           username, "login.")
                 except Exception as err:
                     print(err)
-            time.sleep(5)
+            time.sleep(63)
         os.system("say turn around")
         count = 0
 
     if auto == 1:
         try:
             os.system("say login out")
-            amap_loginout(s)
             print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
                   username, "login out.")
+            amap_loginout(s)
             s.close()
         except Exception as err:
             print(err)

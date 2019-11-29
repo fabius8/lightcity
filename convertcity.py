@@ -80,7 +80,7 @@ def process_text_to_json(input_text):
     count = 0
     with open(input_text, "r", encoding='utf-8') as f:
         for line in f:
-            line = re.split('\.|，|,|\s+|;|\n|、|。', line)
+            line = re.split('\"|\.|，|,|\s+|;|\n|、|。', line)
             line.remove('')
             if line is None:
                 continue
