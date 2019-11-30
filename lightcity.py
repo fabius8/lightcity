@@ -163,19 +163,17 @@ if __name__ == '__main__':
                 os.system(cmd)
                 print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
                       "Oh! Get Noting, Try again...")
-            print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
-                  count, "/", total_city,
-                  "Updated", times, "times! ", i, result)
             gpx = ET.Element("gpx", version="1.1", creator="Xcode")
             wpt = ET.SubElement(gpx, "wpt",
                                 lat=str(result[1]), lon=str(result[0]))
             ET.SubElement(wpt, "name").text = i
             ET.ElementTree(gpx).write(citygpx, encoding='utf-8')
-            while True:
-                if location() is False:
-                    program_exit(username + " " + i + " location failed")
-                else:
-                    break
+            if location() is False:
+                program_exit(username + " " + i + " location failed")
+            else:
+                print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+                      count, "/", total_city,
+                      "Updated", times, "times! ", i, result)
             time.sleep(3)
             if auto == 1 and times == 1 and count == 1:
                 try:
