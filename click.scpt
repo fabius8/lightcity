@@ -25,6 +25,7 @@ on chooseMenuItem(theAppName, theMenuName, theMenuItemName, theMenuItemName2)
     end try
 end chooseMenuItem
 
-chooseMenuItem("Xcode", "Debug", "Simulate Location", "London, England")
+set result1 to chooseMenuItem("Xcode", "Debug", "Simulate Location", "London, England")
 delay(0.2)
-chooseMenuItem("Xcode", "Debug", "Simulate Location", "city")
+set result2 to chooseMenuItem("Xcode", "Debug", "Simulate Location", "city")
+set result to result1 and result2

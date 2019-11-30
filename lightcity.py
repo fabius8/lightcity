@@ -9,13 +9,15 @@ import xml.etree.cElementTree as ET
 import time
 import re
 import wda
+import sys
+import applescript
 
 bundle_id = 'com.autonavi.amap'
 
 parser = argparse.ArgumentParser("lightcity.py city.json")
 parser.add_argument("cityjson", help="convert json to gpx.", type=str)
 parser.add_argument("--start", default=0, help="City start number", type=int)
-parser.add_argument("--auto", default=0, help="auto login", type=int)
+parser.add_argument("--auto", default=1, help="auto login", type=int)
 args = parser.parse_args()
 cityjson = args.cityjson
 result = re.search('^(.*)_(.*).json', cityjson)
@@ -26,25 +28,32 @@ start = args.start
 auto = args.auto
 print("Input:", cityjson, "Output:", citygpx, "Start:", start, "Auto:", auto)
 
+
+def program_exit(err):
+    print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+          err)
+    sys.exit()
+
+
 def amap_login(s):
     s(name=u'我的').tap()
     time.sleep(5)
     s(name=u'登录后开启足迹地图').tap()
     time.sleep(1)
     s(name=u'其他登录方式').tap()
-    #time.sleep(1)
+    # time.sleep(1)
     s(name=u'密码登录').tap()
-    #time.sleep(1)
+    # time.sleep(1)
     s(type='TextField').set_text(username+'\n')
     time.sleep(2)
     s(type='SecureTextField').set_text(passwd+'\n')
-    time.sleep(2)
+    # time.sleep(1)
     s(name=u'登录').tap()
-    #time.sleep(2)
+    # time.sleep(2)
     s(name=u'返回').tap()
-    #time.sleep(2)
+    # time.sleep(2)
     s(name=u'首页').tap()
-    #time.sleep(1)
+    # time.sleep(1)
     s(name=u'我的位置').tap()
 
 
@@ -55,7 +64,7 @@ def amap_loginout(s):
     time.sleep(1)
     if s(name=u'退出登录').exists:
         s(name=u'退出登录').tap()
-        #time.sleep(1)
+        # time.sleep(1)
         s(name=u'退出').tap()
         time.sleep(1)
         s.close()
@@ -94,7 +103,15 @@ class Geocoding:
             return None
 
 
-ecmd = "osascript ./click.scpt 1>/dev/null"
+def location():
+    cmdfile = "./click.scpt"
+    r = applescript.run(cmdfile)
+    if r.out == 'false':
+        print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+              "xcode location failed")
+        return False
+    else:
+        return True
 
 
 if __name__ == '__main__':
@@ -154,7 +171,11 @@ if __name__ == '__main__':
                                 lat=str(result[1]), lon=str(result[0]))
             ET.SubElement(wpt, "name").text = i
             ET.ElementTree(gpx).write(citygpx, encoding='utf-8')
-            os.system(ecmd)
+            while True:
+                if location() is False:
+                    program_exit(username + " " + i + " location failed")
+                else:
+                    break
             time.sleep(3)
             if auto == 1 and times == 1 and count == 1:
                 try:
@@ -162,9 +183,9 @@ if __name__ == '__main__':
                     os.system("say login")
                     amap_login(s)
                     print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
-                          username, "login.")
+                          username, "login success.")
                 except Exception as err:
-                    print(err)
+                    program_exit(username + " login fail! " + err)
             time.sleep(63)
         os.system("say turn around")
         count = 0
