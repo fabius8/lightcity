@@ -55,7 +55,7 @@ class MyApp(tk.Tk):
     # 程序参数/数据
     self.username = '13888888888'
     self.passwd = '88888888'
-    self.city = '北京'
+    self.city = 'xxxxxxxxxx'
     # 程序界面
     self.setupUI()
   def setupUI(self):
@@ -79,10 +79,20 @@ class MyApp(tk.Tk):
     self.l3 = tk.Label(row3, text=self.city, width=20, wraplength=80)
     self.l3.pack(side=tk.LEFT)
 
-    row3 = tk.Frame(self)
-    row3.pack(fill="x")
-    tk.Button(row3, text="设置", command=self.setup_config).pack(side=tk.RIGHT)
+    row4 = tk.Frame(self)
+    row4.pack(fill="x")
+    tk.Button(row4, text="设置", command=self.setup_config).pack(side=tk.RIGHT)
+    tk.Button(row4, text="启动", command=self.run_location).pack(side=tk.LEFT)
   # 设置参数
+  def run_location(self):
+    print(self.username)
+    print(self.passwd)
+    filename = self.username + "_" + self.passwd + ".json"
+    command = "./lightcity.py " + filename
+    print(command)
+    os.system(command)
+
+
   def setup_config(self):
     # 接收弹窗的数据
     res = self.ask_userinfo()
