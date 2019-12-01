@@ -12,6 +12,21 @@ import wda
 import sys
 import applescript
 
+
+def check_running(lockfile):
+    while True:
+        if os.path.exists(lockfile):
+            print("another script is running...")
+            time.sleep(5)
+            continue
+        else:
+            lockfile = open(lockfile, "w+")
+            break
+
+
+lockfile = "/tmp/lock"
+check_running(lockfile)
+
 bundle_id = 'com.autonavi.amap'
 
 parser = argparse.ArgumentParser("lightcity.py city.json")
@@ -197,4 +212,6 @@ if __name__ == '__main__':
             s.close()
         except Exception as err:
             print(err)
+
+    os.remove(lockfile)
 
