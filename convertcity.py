@@ -4,6 +4,7 @@ import json
 import re
 from collections import Counter
 from urllib import request, parse
+import datetime
 
 
 input_text = "temp.txt"
@@ -81,7 +82,10 @@ def process_text_to_json(input_text):
     with open(input_text, "r", encoding='utf-8') as f:
         for line in f:
             line = re.split('\"|\.|，|,|\s+|;|\n|、|。', line)
-            line.remove('')
+            try:
+                line.remove('')
+            except Exception as err:
+                print(err)
             if line is None:
                 continue
             for i in line:
@@ -166,7 +170,9 @@ if __name__ == '__main__':
     print("End city number:", len(cities))
     print(cities, len(cities))
     with open(output_json, "w", encoding='utf-8') as f:
-        json.dump({'city': cities}, f, indent=4, ensure_ascii=False)
+        json.dump({'date': str(datetime.datetime.now()),
+                   'city': cities},
+                  f, indent=4, ensure_ascii=False)
     print("process end!")
 
 
