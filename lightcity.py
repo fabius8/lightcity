@@ -11,21 +11,24 @@ import re
 import wda
 import sys
 import applescript
+import socket
 
 
-def check_running(lockfile):
+def check_running():
     while True:
-        if os.path.exists(lockfile):
-            print("another script is running...")
+        try:
+            global hyf_suo
+            hyf_suo = socket.socket()
+            addr = ('', 9999)
+            hyf_suo.bind(addr)
+            break
+        except Exception as err:
+            print("another script is running...", err)
             time.sleep(5)
             continue
-        else:
-            lockfile = open(lockfile, "w+")
-            break
 
 
-lockfile = "/tmp/lock"
-check_running(lockfile)
+check_running()
 
 bundle_id = 'com.autonavi.amap'
 
@@ -161,8 +164,7 @@ if __name__ == '__main__':
                 print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
                       count, "/", total_city, "skip")
                 continue
-            else:
-                start = 0
+
             while True:
                 try:
                     result = g.geocode(i)
@@ -190,7 +192,7 @@ if __name__ == '__main__':
                       count, "/", total_city,
                       "Updated", times, "times! ", i, result)
             time.sleep(3)
-            if auto == 1 and times == 1 and count == 1:
+            if auto == 1 and times == 1 and count == start:
                 try:
                     s = c.session(bundle_id)
                     os.system("say login")
@@ -213,5 +215,4 @@ if __name__ == '__main__':
         except Exception as err:
             print(err)
 
-    os.remove(lockfile)
 
