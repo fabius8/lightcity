@@ -66,7 +66,6 @@ def amap_login(c, s):
     s(name=u'其他登录方式').tap()
     # time.sleep(1)
     s(name=u'密码登录').tap()
-    # time.sleep(1)
     s(type='TextField').set_text(username+'\n')
     time.sleep(2)
     s(type='SecureTextField').set_text(passwd+'\n')
@@ -77,7 +76,9 @@ def amap_login(c, s):
     time.sleep(3)
     login_image = username + "-" + time.strftime("%Y%m%d-%H%M%S") + "-login" + ".png"
     c.screenshot(login_image)
-    os.system("mkdir -p image;mv *.png image")
+    cmd = "mkdir -p image/" + username + ";"
+    cmd += "mv " + login_image + " image/" + username
+    os.system(cmd)
     # time.sleep(2)
     s(name=u'首页').tap()
     # time.sleep(1)
@@ -90,7 +91,9 @@ def amap_loginout(c, s, end):
     if end == 1:
         logout_image = username + "-" + time.strftime("%Y%m%d-%H%M%S") + "-logout" + ".png"
         c.screenshot(logout_image)
-        os.system("mkdir -p image;mv *.png image")
+        cmd = "mkdir -p image/" + username + ";"
+        cmd += "mv " + logout_image + " image/" + username
+        os.system(cmd)
     s(name=u'设置').tap()
     time.sleep(1)
     if s(name=u'退出登录').exists:
