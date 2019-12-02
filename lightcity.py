@@ -77,17 +77,20 @@ def amap_login(c, s):
     time.sleep(3)
     login_image = username + "-" + time.strftime("%Y%m%d-%H%M%S") + "-login" + ".png"
     c.screenshot(login_image)
+    os.system("mkdir -p image;mv *.png image")
     # time.sleep(2)
     s(name=u'首页').tap()
     # time.sleep(1)
     s(name=u'我的位置').tap()
 
 
-def amap_loginout(c, s):
+def amap_loginout(c, s, end):
     s(name=u'我的').tap()
     time.sleep(3)
-    logout_image = username + "-" + time.strftime("%Y%m%d-%H%M%S") + "-logout" + ".png"
-    c.screenshot(logout_image)
+    if end == 1:
+        logout_image = username + "-" + time.strftime("%Y%m%d-%H%M%S") + "-logout" + ".png"
+        c.screenshot(logout_image)
+        os.system("mkdir -p image;mv *.png image")
     s(name=u'设置').tap()
     time.sleep(1)
     if s(name=u'退出登录').exists:
@@ -159,7 +162,7 @@ if __name__ == '__main__':
         s = c.session(bundle_id)
         try:
             os.system("say check login out!")
-            amap_loginout(c, s)
+            amap_loginout(c, s, 0)
         except Exception as err:
             print(err)
 
@@ -219,7 +222,7 @@ if __name__ == '__main__':
             os.system("say login out")
             print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
                   username, "login out.")
-            amap_loginout(c, s)
+            amap_loginout(c, s, 1)
             s.close()
         except Exception as err:
             print(err)
