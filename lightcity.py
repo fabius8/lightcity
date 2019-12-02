@@ -34,8 +34,10 @@ bundle_id = 'com.autonavi.amap'
 
 parser = argparse.ArgumentParser("lightcity.py city.json")
 parser.add_argument("cityjson", help="convert json to gpx.", type=str)
-parser.add_argument("--start", default=0, help="City start number", type=int)
+parser.add_argument("--start", default=1, help="City start number", type=int)
 parser.add_argument("--auto", default=1, help="auto login", type=int)
+parser.add_argument("--freq", default=2, help="cycle how many times", type=int)
+parser.add_argument("--keeptime", default=63, help="keep time", type=int)
 args = parser.parse_args()
 cityjson = args.cityjson
 result = re.search('^(.*)_(.*).json', cityjson)
@@ -44,7 +46,10 @@ passwd = result.group(2)
 citygpx = "city.gpx"
 start = args.start
 auto = args.auto
-print("Input:", cityjson, "Output:", citygpx, "Start:", start, "Auto:", auto)
+freq = args.freq
+keeptime = args.keeptime
+print("Input:", cityjson, "Output:", citygpx, "Start:", start, "Auto:", auto,
+      "Freq:", freq, "Keeptime:", keeptime)
 
 
 def program_exit(err):
@@ -53,7 +58,7 @@ def program_exit(err):
     sys.exit()
 
 
-def amap_login(s):
+def amap_login(c, s):
     s(name=u'我的').tap()
     time.sleep(5)
     s(name=u'登录后开启足迹地图').tap()
@@ -69,15 +74,20 @@ def amap_login(s):
     s(name=u'登录').tap()
     # time.sleep(2)
     s(name=u'返回').tap()
+    time.sleep(3)
+    login_image = username + "-" + time.strftime("%Y%m%d-%H%M%S") + "-login" + ".png"
+    c.screenshot(login_image)
     # time.sleep(2)
     s(name=u'首页').tap()
     # time.sleep(1)
     s(name=u'我的位置').tap()
 
 
-def amap_loginout(s):
+def amap_loginout(c, s):
     s(name=u'我的').tap()
-    time.sleep(1)
+    time.sleep(3)
+    logout_image = username + "-" + time.strftime("%Y%m%d-%H%M%S") + "-logout" + ".png"
+    c.screenshot(logout_image)
     s(name=u'设置').tap()
     time.sleep(1)
     if s(name=u'退出登录').exists:
@@ -139,7 +149,6 @@ if __name__ == '__main__':
 
     times = 0
     count = 0
-    keeptime = 30
 
     if auto == 1:
         # Enable debug will see http Request and Response
@@ -150,13 +159,13 @@ if __name__ == '__main__':
         s = c.session(bundle_id)
         try:
             os.system("say check login out!")
-            amap_loginout(s)
+            amap_loginout(c, s)
         except Exception as err:
             print(err)
 
     while True:
         times += 1
-        if times == 3:
+        if times > freq:
             break
         for i in info["city"]:
             count += 1
@@ -196,12 +205,12 @@ if __name__ == '__main__':
                 try:
                     s = c.session(bundle_id)
                     os.system("say login")
-                    amap_login(s)
+                    amap_login(c, s)
                     print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
                           username, "login success.")
                 except Exception as err:
                     program_exit(username + " login fail! " + err)
-            time.sleep(63)
+            time.sleep(keeptime)
         os.system("say turn around")
         count = 0
 
@@ -210,7 +219,7 @@ if __name__ == '__main__':
             os.system("say login out")
             print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
                   username, "login out.")
-            amap_loginout(s)
+            amap_loginout(c, s)
             s.close()
         except Exception as err:
             print(err)
