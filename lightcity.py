@@ -75,7 +75,7 @@ def amap_login(c, s):
     s(name=u'登录').tap()
     # time.sleep(2)
     s(name=u'返回').tap()
-    time.sleep(3)
+    time.sleep(5)
     login_image = username + "-" + time.strftime("%Y%m%d-%H%M%S") + "-login" + ".png"
     c.screenshot(login_image)
     cmd = "mkdir -p image/" + username + ";"
