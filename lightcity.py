@@ -41,7 +41,7 @@ parser.add_argument("--freq", default=2, help="cycle how many times", type=int)
 parser.add_argument("--keeptime", default=63, help="keep time", type=int)
 args = parser.parse_args()
 cityjson = args.cityjson
-result = re.search('^(.*)_(.*).json', cityjson)
+result = re.search('(1.*)_(.*).json', cityjson)
 username = result.group(1)
 passwd = result.group(2)
 citygpx = "city.gpx"
@@ -50,7 +50,8 @@ auto = args.auto
 freq = args.freq
 keeptime = args.keeptime
 print("Input:", cityjson, "Output:", citygpx, "Start:", start, "Auto:", auto,
-      "Freq:", freq, "Keeptime:", keeptime)
+      "Freq:", freq, "Keeptime:", keeptime, "Username:",
+      username, "Password:", passwd)
 
 
 def program_exit(err):

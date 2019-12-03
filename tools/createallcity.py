@@ -6,6 +6,7 @@ from urllib import request, parse
 import argparse
 import xml.etree.cElementTree as ET
 import time
+import datetime
 
 parser = argparse.ArgumentParser("createcity.py city.json")
 parser.add_argument("cityjson", help="output city to json.", type=str)
@@ -58,5 +59,7 @@ if __name__ == '__main__':
             cities.append(j["name"])
             print(j["name"])
     with open(cityjson, "w", encoding='utf-8') as f:
-        json.dump({'city': cities}, f, indent=4, ensure_ascii=False)
+        json.dump({'date': str(datetime.datetime.now()),
+                   'city': cities},
+                  f, indent=4, ensure_ascii=False)
     print("city number:", count)
