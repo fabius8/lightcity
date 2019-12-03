@@ -9,9 +9,7 @@ on chooseMenuItem(theAppName, theMenuName, theMenuItemName, theMenuItemName2)
                         tell menu theMenuName
                              tell menu item theMenuItemName
                                   tell menu theMenuItemName
-                                       tell menu item theMenuItemName2
-                                            click
-                                       end tell
+                                       click menu item theMenuItemName2
                                   end tell
                              end tell
                         end tell
