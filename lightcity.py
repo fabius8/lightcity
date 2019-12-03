@@ -23,7 +23,8 @@ def check_running():
             hyf_suo.bind(addr)
             break
         except Exception as err:
-            print("another script is running...", err)
+            print(time.strftime("%Y-%m-%d %H:%M:%S",
+                                time.localtime()), err)
             time.sleep(5)
             continue
 
@@ -159,15 +160,16 @@ if __name__ == '__main__':
     if auto == 1:
         # Enable debug will see http Request and Response
         # wda.DEBUG = True
-        c = wda.Client('http://localhost:8100')
         # get env from $DEVICE_URL if no arguments pass to wda.Client
         # http://localhost:8100 is the default value if $DEVICE_URL is empty
-        s = c.session(bundle_id)
         try:
+            c = wda.Client('http://localhost:8100')
+            s = c.session(bundle_id)
             os.system("say check login out!")
             amap_loginout(c, s, 0)
         except Exception as err:
             print(err)
+            program_exit(err)
 
     while True:
         times += 1
@@ -175,7 +177,7 @@ if __name__ == '__main__':
             break
         for i in info["city"]:
             count += 1
-            if count < start:
+            if count < start and times == 1:
                 print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
                       count, "/", total_city, "skip")
                 continue
