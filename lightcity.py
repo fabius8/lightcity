@@ -211,8 +211,8 @@ if __name__ == '__main__':
                       "Updated", times, "times! ", i, result)
             time.sleep(3)
             if auto == 1 and times == 1 and count == start:
+                errnum = 0
                 while True:
-                    errnum = 0
                     try:
                         s = c.session(bundle_id)
                         os.system("say login")
@@ -220,6 +220,7 @@ if __name__ == '__main__':
                         print(time.strftime("%Y-%m-%d %H:%M:%S",
                                             time.localtime()),
                               username, "login success.")
+                        break
                     except Exception as err:
                         errnum += 1
                         if errnum < 3:
