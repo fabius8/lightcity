@@ -211,14 +211,25 @@ if __name__ == '__main__':
                       "Updated", times, "times! ", i, result)
             time.sleep(3)
             if auto == 1 and times == 1 and count == start:
-                try:
-                    s = c.session(bundle_id)
-                    os.system("say login")
-                    amap_login(c, s)
-                    print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
-                          username, "login success.")
-                except Exception as err:
-                    program_exit(username + " login fail! " + err)
+                while True:
+                    errnum = 0
+                    try:
+                        s = c.session(bundle_id)
+                        os.system("say login")
+                        amap_login(c, s)
+                        print(time.strftime("%Y-%m-%d %H:%M:%S",
+                                            time.localtime()),
+                              username, "login success.")
+                    except Exception as err:
+                        errnum += 1
+                        if errnum < 3:
+                            print(time.strftime("%Y-%m-%d %H:%M:%S",
+                                                time.localtime()),
+                                  username, "login fail ", errnum, "times!")
+                            continue
+                        else:
+                            program_exit(username + " login fail! " +
+                                         errnum + " times!" + err)
             time.sleep(keeptime)
         os.system("say turn around")
         count = 0
@@ -231,6 +242,7 @@ if __name__ == '__main__':
             amap_loginout(c, s, 1)
             s.close()
         except Exception as err:
-            print(err)
+            print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+                  username, "login out failed!", err)
 
 
