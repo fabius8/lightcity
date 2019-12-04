@@ -8,11 +8,6 @@ import xml.etree.cElementTree as ET
 import time
 import datetime
 
-parser = argparse.ArgumentParser("createcity.py city.json")
-parser.add_argument("cityjson", help="output city to json.", type=str)
-args = parser.parse_args()
-cityjson = args.cityjson
-
 
 class Getcity:
     def __init__(self, api_key):
@@ -52,12 +47,15 @@ if __name__ == '__main__':
            i["name"].find("上海") != -1:
             count += 1
             cities.append(i["name"])
-            print(i["name"])
+            #print(i["name"])
             continue
         for j in i["districts"]:
             count += 1
             cities.append(j["name"])
-            print(j["name"])
+            #print(j["name"])
+    cityjson = input("Please input city file name: ")
+    if cityjson == "":
+        cityjson = "allcity_unname.json"
     with open(cityjson, "w", encoding='utf-8') as f:
         json.dump({'date': str(datetime.datetime.now()),
                    'city': cities},
