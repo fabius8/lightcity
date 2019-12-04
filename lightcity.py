@@ -41,7 +41,7 @@ parser.add_argument("--freq", default=2, help="cycle how many times", type=int)
 parser.add_argument("--keeptime", default=63, help="keep time", type=int)
 args = parser.parse_args()
 cityjson = args.cityjson
-result = re.search('(1.*)_(.*).json', cityjson)
+result = re.search('(1..........)_(.*).json', cityjson)
 username = result.group(1)
 passwd = result.group(2)
 citygpx = "city.gpx"
@@ -222,6 +222,7 @@ if __name__ == '__main__':
                               username, "login success.")
                         break
                     except Exception as err:
+                        s.close()
                         errnum += 1
                         if errnum < 3:
                             print(time.strftime("%Y-%m-%d %H:%M:%S",
@@ -241,7 +242,6 @@ if __name__ == '__main__':
             print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
                   username, "login out.")
             amap_loginout(c, s, 1)
-            s.close()
         except Exception as err:
             print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
                   username, "login out failed!", err)
