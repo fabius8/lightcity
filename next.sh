@@ -4,7 +4,6 @@
 
 for file in 1*.json
 do
-    echo $file
-    #./lightcity.py $file
+    ./lightcity.py $file
 done
 

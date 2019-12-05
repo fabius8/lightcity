@@ -5,6 +5,21 @@ import re
 from collections import Counter
 from urllib import request, parse
 import datetime
+import os
+
+
+def yes_no(answer):
+    yes = set(['yes', 'y', 'ye', ''])
+    no = set(['no', 'n'])
+
+    while True:
+        choice = input(answer).lower()
+        if choice in yes:
+            return True
+        elif choice in no:
+            return False
+        else:
+            print("Please respond with \'yes\' or \'no\'\n")
 
 
 class Getcity:
@@ -185,4 +200,10 @@ if __name__ == '__main__':
                    'city': cities},
                   f, indent=4, ensure_ascii=False)
     print("process end!")
+
+    result = yes_no("Do you want to run lightcity? \'Y\' or \'N\': ")
+    if result is True:
+        cmd = "./lightcity.py " + output_json
+        os.system(cmd)
+
 
