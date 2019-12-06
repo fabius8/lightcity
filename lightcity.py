@@ -37,7 +37,7 @@ parser = argparse.ArgumentParser("lightcity.py city.json")
 parser.add_argument("cityjson", help="convert json to gpx.", type=str)
 parser.add_argument("--start", default=1, help="City start number", type=int)
 parser.add_argument("--auto", default=1, help="auto login", type=int)
-parser.add_argument("--freq", default=1, help="cycle how many times", type=int)
+parser.add_argument("--freq", default=2, help="cycle how many times", type=int)
 parser.add_argument("--keeptime", default=63, help="keep time", type=int)
 args = parser.parse_args()
 cityjson = args.cityjson
