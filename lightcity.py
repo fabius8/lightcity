@@ -203,12 +203,17 @@ if __name__ == '__main__':
                                 lat=str(result[1]), lon=str(result[0]))
             ET.SubElement(wpt, "name").text = i
             ET.ElementTree(gpx).write(citygpx, encoding='utf-8')
-            if location() is False:
-                program_exit(username + " " + i + " location failed")
-            else:
-                print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
-                      count, "/", total_city,
-                      "Updated", times, "times! ", i, result)
+            errcount = 0
+            while True:
+                if location() is False:
+                    errcount += 1
+                    if errcount > 3:
+                        program_exit(username + " " + i + " location failed")
+                else:
+                    print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),
+                          count, "/", total_city,
+                          "Updated", times, "times! ", i, result)
+                    break
             time.sleep(3)
             if auto == 1 and times == 1 and count == start:
                 errnum = 0
