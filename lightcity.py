@@ -24,7 +24,7 @@ def check_running():
             break
         except Exception as err:
             print(time.strftime("%Y-%m-%d %H:%M:%S",
-                                time.localtime()), err)
+                                time.localtime()), "Another program is running!")
             time.sleep(5)
             continue
 
