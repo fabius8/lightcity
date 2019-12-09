@@ -173,7 +173,7 @@ if __name__ == '__main__':
     for i in unfind_cities:
         print("X", i, "unfound!!!")
 
-    #cities = check_cities
+    cities = check_cities
     #for i in cities:
     #    if test_city(g, i) is None:
     #        print("X", i)
