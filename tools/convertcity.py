@@ -6,6 +6,7 @@ from collections import Counter
 from urllib import request, parse
 import datetime
 import os
+import sys
 
 
 def yes_no(answer):
@@ -152,6 +153,7 @@ if __name__ == '__main__':
 
     if len(all_cities) != 370:
         print("get all city failed!!!")
+        sys.exit()
 
     cities = process_text_to_json()
     check_cities = []
