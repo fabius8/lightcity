@@ -151,7 +151,7 @@ if __name__ == '__main__':
             all_cities.append(j["name"])
 
     if len(all_cities) != 370:
-        print("get all city failed!")
+        print("get all city failed!!!")
 
     cities = process_text_to_json()
     check_cities = []
@@ -168,25 +168,21 @@ if __name__ == '__main__':
         if find == 0:
             unfind_cities.append(i)
 
-    print("\n>>>unfind>>>")
     for i in unfind_cities:
-        print("X", i)
-    print("<<<unfind<<<\n")
+        print("X", i, "unfound!!!")
 
-    cities = check_cities
-    for i in cities:
-        if test_city(g, i) is None:
-            print("X", i)
-            check_cities.remove(i)
-    cities = check_cities
+    #cities = check_cities
+    #for i in cities:
+    #    if test_city(g, i) is None:
+    #        print("X", i)
+    #        check_cities.remove(i)
+    #cities = check_cities
 
     #print(cities, len(cities))
-    print("\n>>>same>>>")
     b = dict(Counter(cities))
     for k, v in b.items():
         if v > 1:
-            print("!", k)
-    print("<<<same<<<\n")
+            print("!", k, "same!!!")
     cities = sorted(set(cities), key=cities.index)
 
     print("End city number:", len(cities))
