@@ -171,7 +171,7 @@ if __name__ == '__main__':
             unfind_cities.append(i)
 
     for i in unfind_cities:
-        print("X", i, "unfound!!!")
+        print("X", i)
 
     cities = check_cities
     #for i in cities:
@@ -188,7 +188,7 @@ if __name__ == '__main__':
     cities = sorted(set(cities), key=cities.index)
 
     print("End city number:", len(cities))
-    print(cities, len(cities))
+    print(cities)
     print("")
     username = input("Please input username: ")
     password = input("Please input password: ")

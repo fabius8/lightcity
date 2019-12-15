@@ -207,6 +207,7 @@ if __name__ == '__main__':
             while True:
                 if location() is False:
                     errcount += 1
+                    time.sleep(3)
                     if errcount > 3:
                         program_exit(username + " " + i + " location failed")
                 else:
