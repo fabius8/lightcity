@@ -1,4 +1,4 @@
 #!/bin/bash
 
 mv *.json done/
-cd image;rm -rf *
+mv image/* image_backup/

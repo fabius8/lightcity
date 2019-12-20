@@ -69,7 +69,7 @@ def amap_login(c, s):
     # time.sleep(1)
     s(name=u'密码登录').tap()
     s(type='TextField').set_text(username+'\n')
-    time.sleep(2)
+    time.sleep(5)
     s(type='SecureTextField').set_text(passwd+'\n')
     # time.sleep(1)
     s(name=u'登录').tap()
