@@ -57,6 +57,7 @@ if __name__ == '__main__':
     init_userlist()
     user = User()
     sendMsg = sendMsg()
+    tmpmsg = ""
     while True:
         time.sleep(10)
         try:
@@ -68,14 +69,15 @@ if __name__ == '__main__':
                     print(i['title'], "is a new user")
                     userlist.append(i['title'])
                     new_useridlist.append(i['userId'])
+                    tmpmsg = i['subTitle']
             if len(new_useridlist) == 0:
                 continue
             for userid in new_useridlist:
                 print("send msg")
                 time.sleep(5)
                 sendMsg.sendmsg(userid, welcome)
+                sendMsg.sendmsg("wxid_mvl7o57opos421", tmpmsg)
             new_useridlist = []
-
 
         except Exception as err:
             new_useridlist = []
