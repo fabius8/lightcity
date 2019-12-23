@@ -2,6 +2,7 @@
 # - *- coding: utf- 8 - *-
 import requests
 import time
+import sys
 
 userlist = []
 new_useridlist = []
@@ -47,9 +48,8 @@ def init_userlist():
     if info is None:
         return
     for i in info:
-        if i['title'] not in userlist:
-            userlist.append(i['title'])
-
+        if i['userId'] not in userlist:
+            userlist.append(i['userId'])
 
 
 if __name__ == '__main__':
@@ -65,18 +65,20 @@ if __name__ == '__main__':
             if info is None:
                 continue
             for i in info:
-                if i['title'] not in userlist:
-                    print(i['title'], "is a new user")
-                    userlist.append(i['title'])
+                if i['userId'] not in userlist:
+                    print(i['userId'], i['title'], "is a new user",)
+                    userlist.append(i['userId'])
                     new_useridlist.append(i['userId'])
                     tmpmsg = i['subTitle']
             if len(new_useridlist) == 0:
                 continue
             for userid in new_useridlist:
                 print("send msg")
+                sendMsg.sendmsg("wxid_mvl7o57opos421", userid+": "+tmpmsg)
+                time.sleep(5)
+                sendMsg.sendmsg(userid, "在的，亲~")
                 time.sleep(5)
                 sendMsg.sendmsg(userid, welcome)
-                sendMsg.sendmsg("wxid_mvl7o57opos421", tmpmsg)
             new_useridlist = []
 
         except Exception as err:
