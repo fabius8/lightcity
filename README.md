@@ -1,10 +1,33 @@
-# lightcity
-高德指定城市转换经纬度
+# 高德地图点亮城市足迹
+学会使用这套代码，并在闲鱼挂一个『高德地图城市点亮』的商品，大概能产生2K/月的经济收入。
+为什么呢？因为高德地图有一个功能就是去过某个城市，那个城市就会被点亮，但是很多人虽然去过，却因为种种原因该城市没有被点亮，需求就产生了。
+核心的解决方案是『虚拟定位』，很多用户并没有掌握这个技能，只能求助于一些人来完成。
+中国有370个城市，如何批量点亮城市，就是这套代码存在的意义。
 
-需要配合xcode虚拟定位，可对城市漫游，快速实现高德点亮城市。
+## 实现原理
+自动化登陆高德app，输入用户名密码，再通过xcode的debug->simulate来虚拟定位。
 
-# 使用方法
-1. 修改city.json，添加城市
-3. touch city.gpx
-4. xcode 运行, 添加city.gpx文件
-2. ./lightcity.py city.json
+## 使用须知
+1. 需要建工程，即facebook webdriveragent(自行google)，用来识别图像，自动化登陆，截屏。
+2. 手机连接mac，xcode跑test
+
+## 如何使用
+在命令行输入`./run`,把想要点亮的城市copy进去，再输入`ctrl+D`结束，然后按要求，输入用户名和密码。
+输入`Y`即可运行。
+```
+process start...
+Paste your city info. Ctrl-D to save it.
+长沙 张家界 苏州 常州 上海 杭州 嘉兴 许昌 郑州
+^D
+>>>same>>>
+<<<same<<<
+
+End city number: 9
+['长沙市', '张家界市', '苏州市', '常州市', '上海市', '杭州市', '嘉兴市', '许昌市', '郑州市']
+
+Please input username: 13111111111
+Please input password: x13111111111
+process end!
+Do you want to run lightcity? 'Y' or 'N':
+```
+在你的工作目录会生成一个配置了你用户名和密码的文件，里面是你要点亮的城市信息。
