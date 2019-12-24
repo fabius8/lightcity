@@ -41,22 +41,21 @@ if __name__ == '__main__':
     count = 0
     cities = []
     for i in g.geocode("中国"):
-        print(i["name"])
-        count += 1
-        cities.append(i["name"])
-        if i["name"].find("XX") == -1 or \
-           i["name"].find("XX") != -1 or \
-           i["name"].find("XX") != -1 or \
-           i["name"].find("XX") != -1 or \
-           i["name"].find("XX") != -1 or \
-           i["name"].find("XX") != -1 or \
-           i["name"].find("XX") != -1 or \
-           i["name"].find("XX") != -1:
+        if i["name"].find("安徽") != -1 or \
+           i["name"].find("上海") != -1 or \
+           i["name"].find("浙江") != -1 or \
+           i["name"].find("湖北") != -1 or \
+           i["name"].find("四川") != -1 or \
+           i["name"].find("重庆") != -1 or \
+           i["name"].find("贵州") != -1 or \
+           i["name"].find("云南") != -1 or \
+           i["name"].find("西藏") != -1 or \
+           i["name"].find("福建") != -1 or \
+           i["name"].find("广西") != -1:
             for j in i["districts"]:
-                pass
-                #print(j)
-                #cities.append(j["name"])
-                #print(j["name"])
+                cities.append(j["name"])
+                print(j["name"])
+                count += 1
 
     print(count)
     cityjson = input("Please input city file name: ")
