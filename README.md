@@ -8,7 +8,7 @@
 自动化登陆高德app，输入用户名密码，再通过xcode的debug->simulate来虚拟定位。
 
 ## 使用须知
-1. 需要建工程，即facebook webdriveragent(自行google)，用来识别图像，自动化登陆，截屏。
+1. 需要建工程，需要facebook webdriveragent(自行google)，用来识别图像，自动化登陆，截屏。
 2. 手机连接mac，xcode跑test
 
 ## 如何使用
